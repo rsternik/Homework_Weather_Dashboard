@@ -8,12 +8,14 @@ body {
     font-size: 16px;
     line-height: 1;
     text-shadow: rgb(4, 29, 31) 0px 2px 2px;
-}
+    /* background: var(--samgrad); */
+    background-color: black;
+    }
 
 header {
     --ox: "Oxanium";
     --samgrad: rgb(6, 4, 121) linear-gradient(90deg, rgb(9, 11, 102) 0%, rgb(99, 100, 180) 50%, rgb(80, 127, 180) 100%);
-    background: var(--samgrad);
+    
 }
 
 h1 {
@@ -24,4 +26,108 @@ h1 {
     line-height: 1;
     color: white;
     padding: .3em;
+}
+
+main {
+    display:grid;
+    justify-items: center;
+    
+    grid-template-columns:1fr 4fr;
+    padding: 0%;
+    margin: 0%;
+    background-color: blue;
+}
+
+aside {
+    align-items: center;
+    justify-items: center;
+    font-size: 1.3em;
+    color: white;
+    text-align: left;
+    background-color: chocolate;
+}
+
+section{
+    display:grid;
+    grid-template-rows: 1fr 4fr;
+    font-size: 1.3em;
+    color: white; 
+    background-color: cyan;
+}
+
+h2{
+    text-shadow: rgb(112, 123, 124) 0px 2px 2px;
+    margin: .3em;
+    font-size: 1.2em;
+}
+
+input{
+    margin: .3em;
+    border-radius: 4px;
+    border: none;
+}
+
+button{
+    margin: .3em;
+    padding: .2em;
+    font-size: .9em;
+    border-radius: 6px;
+    text-shadow: rgb(52, 53, 53) 0px 1px 2px;
+}
+
+.seperation{
+    height: 0%;
+    border-bottom: 2px solid rgb(255, 255, 255); 
+}
+.history{
+    display:grid;
+    grid-auto-rows: .00001fr;
+}
+.searchHistory{
+    margin: .3em;
+    padding: .2em;
+    font-size: .9em;
+    border-radius: 6px;
+    background-color: rgb(96, 102, 177);
+    text-shadow: rgb(52, 53, 53) 0px 1px 2px;
+    color: white;
+        
+}
+.currentWeather{
+    margin: .3em;
+    padding: .2em;
+    background-color: chartreuse;
+    border-radius: 4px;
+    border: 2px solid white;
+}
+
+.forcast{
+    margin: .3em;
+    padding: .2em;
+    background-color: darkmagenta;
+}
+
+.currentCard{
+    background-color: white;
+    color: black;
+    padding: .2em;
+    text-shadow: rgb(199, 199, 199) 0px 2px 2px;
+}
+
+.forcastCard{
+    background-color: white;
+    padding: .2em;
+    text-shadow: rgb(199, 199, 199) 0px 2px 2px;
+    color: black;
+    font-size: .7em;
+}
+
+li{
+    padding: .2em;
+    list-style: none;
+}
+
+.cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
