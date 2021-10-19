@@ -3,19 +3,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Oxanium:wght@400;700&display=swap");
 body {
     --ox: "Oxanium";
-    --samgrad: rgb(6, 4, 121) linear-gradient(90deg, rgb(9, 11, 102) 0%, rgb(99, 100, 180) 50%, rgb(80, 127, 180) 100%);
+    --samgrad: rgb(6, 4, 121) linear-gradient(90deg, rgb(9, 11, 102) 0%, rgb(36, 38, 153) 50%, rgb(54, 105, 168) 100%);
+    --samgray: rgb(126, 126, 126) linear-gradient(90deg, rgb(104, 104, 104) 0%, rgb(235, 235, 235) 50%, rgb(141, 141, 141) 100%);
     font-family: var(--ox);
-    font-size: 16px;
     line-height: 1;
     text-shadow: rgb(4, 29, 31) 0px 2px 2px;
-    /* background: var(--samgrad); */
-    background-color: black;
-    }
+    background-color: rgb(255, 255, 255);
+}
 
 header {
     --ox: "Oxanium";
-    --samgrad: rgb(6, 4, 121) linear-gradient(90deg, rgb(9, 11, 102) 0%, rgb(99, 100, 180) 50%, rgb(80, 127, 180) 100%);
-    
+    background: var(--samgrad);
 }
 
 h1 {
@@ -29,13 +27,12 @@ h1 {
 }
 
 main {
-    display:grid;
+    display: grid;
     justify-items: center;
-    
-    grid-template-columns:1fr 4fr;
+    align-items: left;
+    grid-template-columns: 1fr 4fr;
     padding: 0%;
     margin: 0%;
-    background-color: blue;
 }
 
 aside {
@@ -44,90 +41,115 @@ aside {
     font-size: 1.3em;
     color: white;
     text-align: left;
-    background-color: chocolate;
 }
 
-section{
-    display:grid;
+section {
+    justify-self: left;
     grid-template-rows: 1fr 4fr;
     font-size: 1.3em;
-    color: white; 
-    background-color: cyan;
+    width: 90%;
+    color: white;
 }
 
-h2{
-    text-shadow: rgb(112, 123, 124) 0px 2px 2px;
+h2 {
+    text-shadow: rgb(185, 185, 185) 0px 2px 2px;
     margin: .3em;
     font-size: 1.2em;
+    color: rgb(0, 0, 0);
 }
 
-input{
+input {
     margin: .3em;
+    line-height: 2em;
     border-radius: 4px;
-    border: none;
+    border: 1px solid black;
+    box-shadow: rgb(138, 135, 135) 0px 2px 2px;
 }
 
-button{
-    margin: .3em;
+button {
+    margin: .5em;
     padding: .2em;
-    font-size: .9em;
+    font-size: 1em;
     border-radius: 6px;
-    text-shadow: rgb(52, 53, 53) 0px 1px 2px;
+    background: var(--samgrad);
+    color: ghostwhite;
+    text-shadow: rgb(29, 29, 29) 0px 1px 2px;
+    box-shadow: rgb(20, 19, 19) 0px 1px 2px;
 }
 
-.seperation{
+.seperation {
     height: 0%;
-    border-bottom: 2px solid rgb(255, 255, 255); 
+    border-bottom: 2px solid rgb(0, 0, 0);
 }
-.history{
-    display:grid;
+
+.history {
+    display: grid;
     grid-auto-rows: .00001fr;
 }
-.searchHistory{
-    margin: .3em;
+
+.searchHistory {
+    margin: .4em;
     padding: .2em;
-    font-size: .9em;
+    font-size: .8em;
     border-radius: 6px;
-    background-color: rgb(96, 102, 177);
-    text-shadow: rgb(52, 53, 53) 0px 1px 2px;
-    color: white;
-        
+    text-shadow: rgb(153, 153, 153) 0px 3px 2px;
+    color: rgb(0, 0, 0);
+    background: none;
+    background-color: rgb(177, 177, 177);
 }
-.currentWeather{
+
+.currentWeather {
     margin: .3em;
     padding: .2em;
-    background-color: chartreuse;
+    border: 2px solid black;
     border-radius: 4px;
-    border: 2px solid white;
 }
 
-.forcast{
-    margin: .3em;
-    padding: .2em;
-    background-color: darkmagenta;
+h3 {
+    color: black;
+    text-shadow: rgb(126, 128, 128) 0px 1px 2px;
+    line-height: 1.4em;
 }
 
-.currentCard{
+.forcast {
+    margin: .4em;
+    padding: .5em;
+    
+}
+
+.currentCard {
     background-color: white;
     color: black;
     padding: .2em;
     text-shadow: rgb(199, 199, 199) 0px 2px 2px;
+    width: 17%;
 }
 
-.forcastCard{
-    background-color: white;
-    padding: .2em;
-    text-shadow: rgb(199, 199, 199) 0px 2px 2px;
-    color: black;
-    font-size: .7em;
+.forcastCard {
+    background: var(--samgrad);
+    line-height: 1.8em;
+    padding: 1.3em;
+    margin: .6em;
+    text-shadow: rgb(90, 86, 86) 0px 2px 2px;
+    color: rgb(255, 255, 255);
+    font-size: .8em;
+    border-radius: 4px;
+    box-shadow: rgb(173, 169, 169) 0px 3px 3px;
+    
 }
 
-li{
+.forcastCard h3 {
+    text-shadow: rgb(90, 86, 86) 0px 2px 2px;
+    color: rgb(255, 255, 255);
+}
+
+li {
     padding: .2em;
     list-style: none;
 }
 
-.cards{
+.cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    width: 80%;
 }
