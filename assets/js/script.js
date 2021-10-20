@@ -7,9 +7,11 @@ let searchButton = $('.search')
 let userInput = $('input')
 const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
 
+
 // Search click event
 $(searchButton).on('click', function () {
-
+    $('.currentCard').text('')
+    $('.cards').text('')
     // Weather data fetch
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
     fetch(requestUrl)
@@ -18,60 +20,115 @@ $(searchButton).on('click', function () {
         })
         .then(function (weather) {
             console.log(weather)
+
             // Grab lat and lon
             let lat = (weather.coord.lat)
             let lon = (weather.coord.lon)
 
-            //Create city name and date
-            let currentTime = weather.dt
-            let currentCity = $('<h3>')
-            currentCity.attr('class', 'city')
-            currentCity.text(weather.name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
-            $('.currentCard').append(currentCity)
-
-            //Create temp
-            let temp = weather.main.temp
-            let tempEl = $('<li>')
-            tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
-            $('.currentCard').append(tempEl)
-
-            //Create wind
-            let wind = weather.wind.speed
-            let windEl = $('<li>')
-            windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
-            $('.currentCard').append(windEl)
-
-            //Create humid
-            let humid = weather.main.humidity
-            let humidEl = $('<li>')
-            humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
-            $('.currentCard').append(humidEl)
-
             // Onecall data fetch
-            let oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey
+            let oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + APIkey
             fetch(oneCall)
                 .then(function (response) {
                     return response.json()
                 })
                 .then(function (oneCdata) {
+                    console.log(oneCdata)
+
+                    //Get skies icon 
+                    let todayIcon = oneCdata.current.weather[0].icon
+                    let todayIconObject = $('<img>')
+                    $(todayIconObject).attr('src', 'https://openweathermap.org/img/wn/' + todayIcon + '.png')
+
+                    //Create city name and date cloud icon
+                    let currentTime = oneCdata.daily[0].dt
+                    let currentCity = $('<h3>')
+                    currentCity.attr('class', 'city')
+                    currentCity.html(weather.name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
+
+                    //Create temp
+                    let temp = oneCdata.current.temp
+                    let tempEl = $('<li>')
+                    tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
+
+                    //Create wind
+                    let wind = oneCdata.current.wind_speed
+                    let windEl = $('<li>')
+                    windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
+
+
                     //Create humid
+                    let humid = oneCdata.current.humidity
+                    let humidEl = $('<li>')
+                    humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
+
+                    //Create UV
                     let uvIndex = oneCdata.current.uvi
                     let uvEl = $('<li>')
                     uvEl.html('UV Index:' + ' ' + uvIndex)
+
+                    // Append Current Card Elements
+                    $('.currentCard').append(currentCity)
+                    $('.currentCard').append(todayIconObject)
+                    $('.currentCard').append(tempEl)
+                    $('.currentCard').append(windEl)
+                    $('.currentCard').append(humidEl)
                     $('.currentCard').append(uvEl)
+
+                    // 5 day forecast pull
+                    for (i = 1; i < 6; i++) {
+                        console.log('loop')
+                        //Get skies icon 
+                        let forecastIcon = oneCdata.daily[i].weather[0].icon
+                        let forecastIconObject = $('<img>')
+                        $(forecastIconObject).attr('src', 'https://openweathermap.org/img/wn/' + forecastIcon + '.png')
+
+                        //Create city name and date cloud icon
+                        let currentTime = oneCdata.daily[i].dt
+                        let currentCity = $('<h3>')
+                        currentCity.attr('class', 'city')
+                        currentCity.html(weather.name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
+
+                        //Create temp
+                        let temp = oneCdata.daily[i].temp.day
+                        let tempEl = $('<li>')
+                        tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
+
+                        //Create wind
+                        let wind = oneCdata.daily[i].wind_speed
+                        let windEl = $('<li>')
+                        windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
+
+
+                        //Create humid
+                        let humid = oneCdata.daily[i].humidity
+                        let humidEl = $('<li>')
+                        humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
+
+                        //Create UV
+                        let uvIndex = oneCdata.daily[i].uvi
+                        let uvEl = $('<li>')
+                        uvEl.html('UV Index:' + ' ' + uvIndex)
+
+                        // Forecast Card
+                        let forecastCard = $('<div>')
+                        forecastCard.attr('class', 'forecastCard')
+                       
+
+                        // Append Current Card Elements
+                        $('.cards').append(forecastCard)
+                        $(forecastCard).append(currentCity)
+                        $(forecastCard).append(forecastIconObject)
+                        $(forecastCard).append(tempEl)
+                        $(forecastCard).append(windEl)
+                        $(forecastCard).append(humidEl)
+                        $(forecastCard).append(uvEl)
+                    }
+
+
                 });
-
-
         });
-
-
-
 })
+// User History
 $(historyButton).on('click', function () {
-
     console.log($(this).attr('name'))
 })
-
-function currentWeather(){
-    
-}
