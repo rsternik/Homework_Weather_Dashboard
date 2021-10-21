@@ -5,13 +5,22 @@ let time = now.format("dddd, MMMM Do YYYY, h:mm:ss a")
 let historyButton = $('.searchHistory')
 let searchButton = $('.search')
 let userInput = $('input')
+let key = 0
 const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
-
 
 // Search click event
 $(searchButton).on('click', function () {
+   
+       if (userInput.val() == ''){
+           console.log('EMPTY!!!!')
+return
+       }
+       console.log('Clicked')
+    localStorage.setItem(key, userInput.val())
+   
     $('.currentCard').text('')
     $('.cards').text('')
+    
     // Weather data fetch
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
     fetch(requestUrl)
@@ -19,8 +28,9 @@ $(searchButton).on('click', function () {
             return response.json()
         })
         .then(function (weather) {
-            console.log(weather)
-
+            console.log(weather.cod)
+            
+          
             // Grab lat and lon
             let lat = (weather.coord.lat)
             let lon = (weather.coord.lon)
@@ -33,6 +43,7 @@ $(searchButton).on('click', function () {
                 })
                 .then(function (oneCdata) {
                     console.log(oneCdata)
+                    
 
                     //Get skies icon 
                     let todayIcon = oneCdata.current.weather[0].icon
@@ -76,7 +87,7 @@ $(searchButton).on('click', function () {
 
                     // 5 day forecast pull
                     for (i = 1; i < 6; i++) {
-                        console.log('loop')
+                        
                         //Get skies icon 
                         let forecastIcon = oneCdata.daily[i].weather[0].icon
                         let forecastIconObject = $('<img>')
@@ -113,7 +124,6 @@ $(searchButton).on('click', function () {
                         let forecastCard = $('<div>')
                         forecastCard.attr('class', 'forecastCard')
                        
-
                         // Append Current Card Elements
                         $('.cards').append(forecastCard)
                         $(forecastCard).append(currentCity)
@@ -127,6 +137,8 @@ $(searchButton).on('click', function () {
 
                 });
         });
+key++
+userInput.val('')
 })
 // User History
 $(historyButton).on('click', function () {

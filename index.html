@@ -18,16 +18,22 @@
         <aside>
             <h2>Search for a City:</h2>
             <div class="history">
-                <input></input>
+                <form>
+                    <label for="username"></label>
+                    <input type="text" id="search" name="username" required="required">
+             </form>
                 <button class="search">Search</button>
-                <div class="seperation"></div>
+                
+                  <div class="seperation"></div>
                 <button class='searchHistory' name="city1">City Name</button>
             </div>
         </aside>
         <section>
             <div class="currentWeather">
                 <div class="currentCard">
-                    <div class="currentEl"><h3 class="currentCity">City</h3><img class='weatherIcon'></div>
+                    <div class="currentEl">
+                        <h3 class="currentCity">City</h3><img class='weatherIcon'>
+                    </div>
                     <li class="currentTemp">Temp:</li>
                     <li class="currentWind">Wind:</li>
                     <li class="currentHumid">Humidity:</li>
@@ -68,11 +74,13 @@
                         <li>Wind:</li>
                         <li>Humidity:</li>
                     </div>
-                    
+
                 </div>
             </div>
         </section>
     </main>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
