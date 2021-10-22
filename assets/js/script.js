@@ -10,27 +10,51 @@ const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
 
 // Search click event
 $(searchButton).on('click', function () {
-   
-       if (userInput.val() == ''){
-           console.log('EMPTY!!!!')
-return
-       }
-       console.log('Clicked')
+    //User inut varrible used for error trapping 
+    inputVal = userInput.val()
+
+
+    // Condition if local storage has a duplicate value
+    if (userInput.val() == '') {
+        alert('You must enter a city name.')
+        return
+    }
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === userInput.val()) {
+            alert('Already exists in search history')
+            return
+        }
+    }
+
     localStorage.setItem(key, userInput.val())
-   
+
+    // Clear Page
     $('.currentCard').text('')
     $('.cards').text('')
-    
+
     // Weather data fetch
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
     fetch(requestUrl)
         .then(function (response) {
             return response.json()
         })
-        .then(function (weather) {
-            console.log(weather.cod)
-            
-          
+        .then(function weaths(weather) {
+
+            //Error trapping "city not found" 
+            if (weather.cod != 200) {
+
+                for (let i = 0; i < localStorage.length; i++) {
+                    let key = localStorage.key(i);
+                    let value = localStorage.getItem(key);
+                    if (value === inputVal) {
+                        localStorage.removeItem(key, value);
+                    }
+                }
+                alert('City not found. Please try again.')
+            }
+
             // Grab lat and lon
             let lat = (weather.coord.lat)
             let lon = (weather.coord.lon)
@@ -43,7 +67,6 @@ return
                 })
                 .then(function (oneCdata) {
                     console.log(oneCdata)
-                    
 
                     //Get skies icon 
                     let todayIcon = oneCdata.current.weather[0].icon
@@ -66,7 +89,6 @@ return
                     let windEl = $('<li>')
                     windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
-
                     //Create humid
                     let humid = oneCdata.current.humidity
                     let humidEl = $('<li>')
@@ -87,7 +109,7 @@ return
 
                     // 5 day forecast pull
                     for (i = 1; i < 6; i++) {
-                        
+
                         //Get skies icon 
                         let forecastIcon = oneCdata.daily[i].weather[0].icon
                         let forecastIconObject = $('<img>')
@@ -109,7 +131,6 @@ return
                         let windEl = $('<li>')
                         windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
-
                         //Create humid
                         let humid = oneCdata.daily[i].humidity
                         let humidEl = $('<li>')
@@ -123,7 +144,7 @@ return
                         // Forecast Card
                         let forecastCard = $('<div>')
                         forecastCard.attr('class', 'forecastCard')
-                       
+
                         // Append Current Card Elements
                         $('.cards').append(forecastCard)
                         $(forecastCard).append(currentCity)
@@ -132,13 +153,14 @@ return
                         $(forecastCard).append(windEl)
                         $(forecastCard).append(humidEl)
                         $(forecastCard).append(uvEl)
+
+
                     }
-
-
                 });
         });
-key++
-userInput.val('')
+    key++
+    userInput.val('')
+
 })
 // User History
 $(historyButton).on('click', function () {

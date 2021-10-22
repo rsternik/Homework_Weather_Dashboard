@@ -105,7 +105,8 @@ button {
     padding: .2em;
     border: 2px solid black;
     border-radius: 4px;
-    height: 50%;
+    height: 45%;
+    width: 20%
 }
 
 h3 {
@@ -156,7 +157,7 @@ li {
 .cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    width: 80%;
+    width: 100%;
 }
 
 
@@ -165,3 +166,30 @@ li {
     width: 100%;
     
 }
+
+@media screen and (max-width: 992px) {
+    .currentWeather{
+      width: 35%;
+      height: 35%;
+      align-items: center;
+     }
+     .seperation{
+         max-height: 10%;
+     }
+     h3.city{
+         font-size: 0.8em;
+     }
+     li{
+         font-size: 0.7em;
+     }
+
+     .cards{
+         display: inline-block;
+        
+         
+     }
+
+      }
+  
+  
+  
