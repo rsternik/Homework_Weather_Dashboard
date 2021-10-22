@@ -10,7 +10,7 @@ const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
 
 // Search click event
 $(searchButton).on('click', function () {
-    //User inut varrible used for error trapping 
+    //User input varrible used for error trapping 
     inputVal = userInput.val()
 
 
