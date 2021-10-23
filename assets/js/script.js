@@ -2,58 +2,36 @@
 let now = moment()
 let time = now.format("dddd, MMMM Do YYYY, h:mm:ss a")
 
+// API KEY
+const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
+
 //  Variables
-let searchButton = $('.search')
-let userInput = $('input')
 let key = 0
+let errorCode
+
+// Arrays
 let oneCdata = []
 let weather = []
 let datahub = []
-const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
+
+// Queries 
+let searchButton = $('.search')
+let userInput = $('input')
 let resetButton = $('.resetHistory')
 let historySection = $('.history')
-let errorCode
 let historyButton = $('.searchHistory')
-
-
 
 // Search click event
 $(searchButton).on('click', function () {
-
-
-
-
-    // Condition if local storage has a duplicate value
-    if (userInput.val() === '') {
-        alert('You must enter a city name.')
-        return
-    }
-    for (let i = 0; i < localStorage.length; i++) {
-        let inputVal = userInput.val()
-        let key = localStorage.key(i)
-        let value = localStorage.getItem(key)
-        if (value === inputVal) {
-            console.log(inputVal + ' ' + 'clone')
-
-
-            setTimeout(getWeather(), 500)
-            setTimeout(createElements, 1000)
-            return
-        }
-
-
-    }
-    historyList()
-    setTimeout(getWeather(), 500)
-    setTimeout(createElements, 1000)
+    //Pull weather data 
+    getWeather()
+    setTimeout(conditions, 500)
 
 })
 
-
-
+// Pull Weather Data and dump into global arrays - oneCdata and weather
 function getWeather() {
-    $('.currentCard').html('')
-    $('.cards').html('')
+
     // Weather data fetch
     console.log('get weather')
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
@@ -64,18 +42,6 @@ function getWeather() {
         .then(function weaths(weatherData) {
             weather.shift()
             weather.push(weatherData)
-            //Error trapping "city not found" 
-            if (weather[0].cod != 200) {
-
-                for (let i = 0; i < localStorage.length; i++) {
-                    let key = localStorage.key(i);
-                    let value = localStorage.getItem(key);
-                    if (value === userInput) {
-                        localStorage.removeItem(key, value);
-                    }
-                }
-                alert('City not found. Please try again.')
-            }
 
             // Grab lat and lon
             let lat = (weatherData.coord.lat)
@@ -92,15 +58,47 @@ function getWeather() {
                     oneCdata.shift()
                     oneCdata.push(oneCdata1)
 
-
                 })
         });
 
 }
 
+function conditions() {
+    // Condition when there isn't any input
+    if (userInput.val() === '') {
+        alert('You must enter a city name.')
+        return
+    }
+
+    //Error trapping "city not found" 
+
+    if (weather[0].cod != 200) {
+        alert('City not found. Please try again')
+        return
+    }
+
+    // Loop to check local storage for duplicate entries 
+    for (let i = 0; i < localStorage.length; i++) {
+        let inputVal = userInput.val()
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === inputVal) {
+            console.log(inputVal + ' ' + 'clone')
+            createElements()
+            return
+        }
+    }
+    historyList()
+    createElements()
+
+}
+
+// Display information to page
 function createElements() {
 
-    console.log(oneCdata)
+    // Clear elements
+    $('.currentCard').html('')
+    $('.cards').html('')
 
     // Get skies icon 
     todayIcon = oneCdata[0].current.weather[0].icon
@@ -195,7 +193,7 @@ function historyList() {
     localStorage.setItem(key, userInput.val())
     // userInput val
     let cityName = userInput.val()
-    
+
     // Append search history
     let historyButton = $('<button>')
     historyButton.attr('class', 'searchHistory')
