@@ -10,3 +10,7 @@
 
 #### **Live URL**
 https://rsternik.github.io/Homework_Weather_Dashboard/
+
+#### Preview
+
+![](assets/img/preview.png)
