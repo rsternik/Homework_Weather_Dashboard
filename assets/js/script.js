@@ -24,6 +24,7 @@ let historyButton = $('.searchHistory')
 function conditions() {
     $('#searchHistory').remove()
     // Condition when there isn't any input
+    console.log('condition' + $(userInput).val())
     if (userInput.val() === '') {
         alert('You must enter a city name.')
         return
@@ -37,13 +38,13 @@ function conditions() {
 
     // Loop to check local storage for duplicate entries 
     for (let i = 0; i < localStorage.length; i++) {
-        let inputVal = userInput.val()
+        let xinput = $(userInput).val()
         let key = localStorage.key(i)
         let value = localStorage.getItem(key)
-        if (value === inputVal) {
-            console.log('same')
+        if (value === xinput) {
+            console.log(xinput)
             $('#searchHistory').remove()
-            createElements()
+            getWeatherObjects()
             return
         }
     }
@@ -65,7 +66,7 @@ return
 function getWeatherObjects() {
 
     // weatherObj data fetch
-    let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
+    let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + $(userInput).val() + "&units=imperial&appid=" + APIkey
     fetch(requestUrl)
         .then(function (response) {
             return response.json()
@@ -213,15 +214,21 @@ function historyList() {
             historyButton.attr('id', 'searchHistory')
             historyButton.attr('class', 'searchHistory')
             historyButton.text(localStorage.getItem([key]))
+            historyButton.attr('name', localStorage.getItem([key]))
             historySection.append(historyButton)
         }
     }return
     
 }
 
+// Search History Button
 $(historySection).on('click', '.searchHistory', function () {
-
-    console.log('clicked')
+    
+    
+    $(userInput).val($(this).attr('name')) 
+    console.log(userInput.val())
+    setTimeout(getWeatherObjects, 1000)
+   
 })
 
 // Reset Button
