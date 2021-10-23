@@ -1,19 +1,22 @@
 // Moment Setup
 let now = moment()
 let time = now.format("dddd, MMMM Do YYYY, h:mm:ss a")
+
 //  Variables
-let historyButton = $('.searchHistory')
 let searchButton = $('.search')
 let userInput = $('input')
 let key = 0
 const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
+let resetButton = $('.resetHistory')
+let historySection = $('.history')
+
+
 
 // Search click event
 $(searchButton).on('click', function () {
-    //User input varrible used for error trapping 
+    // User input variable used for error trapping 
     inputVal = userInput.val()
-
-
+    
     // Condition if local storage has a duplicate value
     if (userInput.val() == '') {
         alert('You must enter a city name.')
@@ -27,12 +30,13 @@ $(searchButton).on('click', function () {
             return
         }
     }
-
-    localStorage.setItem(key, userInput.val())
-
+    
+    historyList()
+    
     // Clear Page
     $('.currentCard').text('')
     $('.cards').text('')
+
 
     // Weather data fetch
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
@@ -58,7 +62,12 @@ $(searchButton).on('click', function () {
             // Grab lat and lon
             let lat = (weather.coord.lat)
             let lon = (weather.coord.lon)
-
+            
+            
+            //Save into local storage
+            localStorage.setItem('City' + ' ' + key, inputVal)
+            
+            
             // Onecall data fetch
             let oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + APIkey
             fetch(oneCall)
@@ -68,33 +77,33 @@ $(searchButton).on('click', function () {
                 .then(function (oneCdata) {
                     console.log(oneCdata)
 
-                    //Get skies icon 
+                    // Get skies icon 
                     let todayIcon = oneCdata.current.weather[0].icon
                     let todayIconObject = $('<img>')
                     $(todayIconObject).attr('src', 'https://openweathermap.org/img/wn/' + todayIcon + '.png')
 
-                    //Create city name and date cloud icon
+                    // Create city name and date cloud icon
                     let currentTime = oneCdata.daily[0].dt
                     let currentCity = $('<h3>')
                     currentCity.attr('class', 'city')
                     currentCity.html(weather.name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
 
-                    //Create temp
+                    // Create temp
                     let temp = oneCdata.current.temp
                     let tempEl = $('<li>')
                     tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
 
-                    //Create wind
+                    // Create wind
                     let wind = oneCdata.current.wind_speed
                     let windEl = $('<li>')
                     windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
-                    //Create humid
+                    // Create humid
                     let humid = oneCdata.current.humidity
                     let humidEl = $('<li>')
                     humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
 
-                    //Create UV
+                    // Create UV
                     let uvIndex = oneCdata.current.uvi
                     let uvEl = $('<li>')
                     uvEl.html('UV Index:' + ' ' + uvIndex)
@@ -107,36 +116,36 @@ $(searchButton).on('click', function () {
                     $('.currentCard').append(humidEl)
                     $('.currentCard').append(uvEl)
 
-                    // 5 day forecast pull
+                    // 5 day forecast loop
                     for (i = 1; i < 6; i++) {
 
-                        //Get skies icon 
+                        // Get skies icon 
                         let forecastIcon = oneCdata.daily[i].weather[0].icon
                         let forecastIconObject = $('<img>')
                         $(forecastIconObject).attr('src', 'https://openweathermap.org/img/wn/' + forecastIcon + '.png')
 
-                        //Create city name and date cloud icon
+                        // Create city name and date cloud icon
                         let currentTime = oneCdata.daily[i].dt
                         let currentCity = $('<h3>')
                         currentCity.attr('class', 'city')
                         currentCity.html(weather.name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
 
-                        //Create temp
+                        // Create temp
                         let temp = oneCdata.daily[i].temp.day
                         let tempEl = $('<li>')
                         tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
 
-                        //Create wind
+                        // Create wind
                         let wind = oneCdata.daily[i].wind_speed
                         let windEl = $('<li>')
                         windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
-                        //Create humid
+                        // Create humid
                         let humid = oneCdata.daily[i].humidity
                         let humidEl = $('<li>')
                         humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
 
-                        //Create UV
+                        // Create UV
                         let uvIndex = oneCdata.daily[i].uvi
                         let uvEl = $('<li>')
                         uvEl.html('UV Index:' + ' ' + uvIndex)
@@ -145,7 +154,7 @@ $(searchButton).on('click', function () {
                         let forecastCard = $('<div>')
                         forecastCard.attr('class', 'forecastCard')
 
-                        // Append Current Card Elements
+                        // Append Forecast Card Elements
                         $('.cards').append(forecastCard)
                         $(forecastCard).append(currentCity)
                         $(forecastCard).append(forecastIconObject)
@@ -162,7 +171,30 @@ $(searchButton).on('click', function () {
     userInput.val('')
 
 })
-// User History
-$(historyButton).on('click', function () {
-    console.log($(this).attr('name'))
+
+// Reset Button
+$(resetButton).on('click', function () {
+    console.log('History Reset Clicked')
+    localStorage.clear()
+    
 })
+
+// Search History
+function historyList(){
+
+    // userInput val
+    let cityName = userInput.val()
+    // Append search history
+    let historyButton = $('<button>')
+    historyButton.attr('class', 'searchHistory')
+    historyButton.text(cityName)
+    historySection.append(historyButton)
+
+    historyButton.on('click', function(){
+        console.log('Clicked')
+
+        userInput = $(this).attr('name')
+        console.log('User Input' + cityName)
+    })
+
+}

@@ -98,6 +98,7 @@ button {
     color: rgb(0, 0, 0);
     background: none;
     background-color: rgb(177, 177, 177);
+    text-transform: capitalize;
 }
 
 .currentWeather {
