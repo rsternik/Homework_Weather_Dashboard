@@ -5,14 +5,13 @@ let time = now.format("dddd, MMMM Do YYYY, h:mm:ss a")
 // API KEY
 const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
 
-//  Variables
-let key = 0
-let errorCode
+//  Variables & Arrays
+let key
+// One Call API object
+let oncallObj = []
 
-// Arrays
-let oneCdata = []
-let weather = []
-let datahub = []
+// Weather API object
+let weatherObj = []
 
 // Queries 
 let searchButton = $('.search')
@@ -21,49 +20,9 @@ let resetButton = $('.resetHistory')
 let historySection = $('.history')
 let historyButton = $('.searchHistory')
 
-// Search click event
-$(searchButton).on('click', function () {
-    //Pull weather data 
-    getWeather()
-    setTimeout(conditions, 500)
-
-})
-
-// Pull Weather Data and dump into global arrays - oneCdata and weather
-function getWeather() {
-
-    // Weather data fetch
-    console.log('get weather')
-    let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
-    fetch(requestUrl)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function weaths(weatherData) {
-            weather.shift()
-            weather.push(weatherData)
-
-            // Grab lat and lon
-            let lat = (weatherData.coord.lat)
-            let lon = (weatherData.coord.lon)
-
-            // Onecall data fetch
-            let oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + APIkey
-            fetch(oneCall)
-                .then(function (response) {
-                    return response.json()
-                })
-
-                .then(function (oneCdata1) {
-                    oneCdata.shift()
-                    oneCdata.push(oneCdata1)
-
-                })
-        });
-
-}
-
+// Conditions
 function conditions() {
+    $('#searchHistory').remove()
     // Condition when there isn't any input
     if (userInput.val() === '') {
         alert('You must enter a city name.')
@@ -71,8 +30,7 @@ function conditions() {
     }
 
     //Error trapping "city not found" 
-
-    if (weather[0].cod != 200) {
+    if (weatherObj[0].cod != 200) {
         alert('City not found. Please try again')
         return
     }
@@ -83,51 +41,95 @@ function conditions() {
         let key = localStorage.key(i)
         let value = localStorage.getItem(key)
         if (value === inputVal) {
-            console.log(inputVal + ' ' + 'clone')
+            console.log('same')
+            $('#searchHistory').remove()
             createElements()
             return
         }
     }
-    historyList()
-    createElements()
+    $('#searchHistory').remove()
+    historyConditions()
+    return
+}
+
+// Search click event
+$(searchButton).on('click', function () {
+    $('#searchHistory').remove()
+    //Pull weather data 
+    getWeatherObjects()
+    setTimeout(conditions, 900)
+return
+})
+
+// Pull weatherObj Data and dump into global arrays - oncallObj and weatherObj
+function getWeatherObjects() {
+
+    // weatherObj data fetch
+    let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput.val() + "&units=imperial&appid=" + APIkey
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function weaths(weatherObjData) {
+            weatherObj.shift()
+            weatherObj.push(weatherObjData)
+
+            // Grab lat and lon
+            let lat = (weatherObjData.coord.lat)
+            let lon = (weatherObjData.coord.lon)
+
+            // Onecall data fetch
+            let oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + APIkey
+            fetch(oneCall)
+                .then(function (response) {
+                    return response.json()
+                })
+
+                .then(function (oncallObj1) {
+                    oncallObj.shift()
+                    oncallObj.push(oncallObj1)
+
+                })
+        });
 
 }
 
-// Display information to page
+// Display Forecasts
 function createElements() {
 
     // Clear elements
     $('.currentCard').html('')
     $('.cards').html('')
+    $('#searchHistory').remove()
 
     // Get skies icon 
-    todayIcon = oneCdata[0].current.weather[0].icon
+    todayIcon = oncallObj[0].current.weather[0].icon
     todayIconObject = $('<img>')
     $(todayIconObject).attr('src', 'https://openweathermap.org/img/wn/' + todayIcon + '.png')
 
     // Create city name and date cloud icon
-    currentTime = oneCdata[0].daily[0].dt
+    currentTime = oncallObj[0].daily[0].dt
     currentCity = $('<h3>')
     currentCity.attr('class', 'city')
-    currentCity.html(weather[0].name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
-    console.log(weather[0].name)
+    currentCity.html(weatherObj[0].name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
+
     // Create temp
-    temp = oneCdata[0].current.temp
+    temp = oncallObj[0].current.temp
     tempEl = $('<li>')
     tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
 
     // Create wind
-    wind = oneCdata[0].current.wind_speed
+    wind = oncallObj[0].current.wind_speed
     windEl = $('<li>')
     windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
     // Create humid
-    humid = oneCdata[0].current.humidity
+    humid = oncallObj[0].current.humidity
     humidEl = $('<li>')
     humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
 
     // Create UV
-    uvIndex = oneCdata[0].current.uvi
+    uvIndex = oncallObj[0].current.uvi
     uvEl = $('<li>')
     uvEl.html('UV Index:' + ' ' + uvIndex)
 
@@ -143,33 +145,33 @@ function createElements() {
     for (i = 1; i < 6; i++) {
 
         // Get skies icon 
-        let forecastIcon = oneCdata[0].daily[i].weather[0].icon
+        let forecastIcon = oncallObj[0].daily[i].weather[0].icon
         let forecastIconObject = $('<img>')
         $(forecastIconObject).attr('src', 'https://openweathermap.org/img/wn/' + forecastIcon + '.png')
 
         // Create city name and date cloud icon
-        let currentTime = oneCdata[0].daily[i].dt
+        let currentTime = oncallObj[0].daily[i].dt
         let currentCity = $('<h3>')
         currentCity.attr('class', 'city')
-        currentCity.html(weather[0].name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
+        currentCity.html(weatherObj[0].name + " " + moment.unix(currentTime).format('(M-D-YYYY)'))
 
         // Create temp
-        let temp = oneCdata[0].daily[i].temp.day
+        let temp = oncallObj[0].daily[i].temp.day
         let tempEl = $('<li>')
         tempEl.html('Temp:' + ' ' + temp + ' ' + '<span>&#176;</span>')
 
         // Create wind
-        let wind = oneCdata[0].daily[i].wind_speed
+        let wind = oncallObj[0].daily[i].wind_speed
         let windEl = $('<li>')
         windEl.html('Wind:' + ' ' + wind + ' ' + 'MPH')
 
         // Create humid
-        let humid = oneCdata[0].daily[i].humidity
+        let humid = oncallObj[0].daily[i].humidity
         let humidEl = $('<li>')
         humidEl.html('Humidity:' + ' ' + humid + ' ' + '%')
 
         // Create UV
-        let uvIndex = oneCdata[0].daily[i].uvi
+        let uvIndex = oncallObj[0].daily[i].uvi
         let uvEl = $('<li>')
         uvEl.html('UV Index:' + ' ' + uvIndex)
 
@@ -185,27 +187,42 @@ function createElements() {
         $(forecastCard).append(windEl)
         $(forecastCard).append(humidEl)
         $(forecastCard).append(uvEl)
-    }
+    }historyList()
 }
 
-// Write search history into local storage
+// Store Search History  
+function historyConditions() {
+    
+    if (localStorage.getItem(key) >= 0) {
+        let x = localStorage.length
+        localStorage.setItem(x++, userInput.val())
+        // userInput val
+        let cityName = userInput.val()
+    }createElements()
+        return
+}
+
+// Display Search History
 function historyList() {
-    localStorage.setItem(key, userInput.val())
-    // userInput val
-    let cityName = userInput.val()
-
-    // Append search history
-    let historyButton = $('<button>')
-    historyButton.attr('class', 'searchHistory')
-    historyButton.text(cityName)
-    historySection.append(historyButton)
-    key++
-
-    historyButton.on('click', function () {
-
-        console.log('Clicked')
-    })
+    $('#searchHistory').remove()
+    // Pull from localstorage
+    for (let key in localStorage) {
+        if (typeof localStorage[key] === 'string') {
+            // Append search history
+            let historyButton = $('<button>')
+            historyButton.attr('id', 'searchHistory')
+            historyButton.attr('class', 'searchHistory')
+            historyButton.text(localStorage.getItem([key]))
+            historySection.append(historyButton)
+        }
+    }return
+    
 }
+
+$(historySection).on('click', '.searchHistory', function () {
+
+    console.log('clicked')
+})
 
 // Reset Button
 $(resetButton).on('click', function () {
@@ -214,4 +231,5 @@ $(resetButton).on('click', function () {
     location.reload()
 
 })
-
+$('#searchHistory').remove()
+historyList()
