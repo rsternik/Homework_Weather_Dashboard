@@ -24,10 +24,12 @@ let historyButton = $('.searchHistory')
 function conditions() {
     $('#searchHistory').remove()
     // Condition when there isn't any input
-    console.log('condition' + $(userInput).val())
+
     if (userInput.val() === '') {
         alert('You must enter a city name.')
+        historyList()
         return
+
     }
 
     //Error trapping "city not found" 
@@ -45,6 +47,7 @@ function conditions() {
             console.log(xinput)
             $('#searchHistory').remove()
             getWeatherObjects()
+            setTimeout(createElements, 1000)
             return
         }
     }
@@ -58,8 +61,8 @@ $(searchButton).on('click', function () {
     $('#searchHistory').remove()
     //Pull weather data 
     getWeatherObjects()
-    setTimeout(conditions, 900)
-return
+    setTimeout(conditions, 1000)
+    return
 })
 
 // Pull weatherObj Data and dump into global arrays - oncallObj and weatherObj
@@ -188,19 +191,19 @@ function createElements() {
         $(forecastCard).append(windEl)
         $(forecastCard).append(humidEl)
         $(forecastCard).append(uvEl)
-    }historyList()
+    } historyList()
 }
 
 // Store Search History  
 function historyConditions() {
-    
+
     if (localStorage.getItem(key) >= 0) {
         let x = localStorage.length
         localStorage.setItem(x++, userInput.val())
         // userInput val
         let cityName = userInput.val()
-    }createElements()
-        return
+    } createElements()
+    return
 }
 
 // Display Search History
@@ -217,18 +220,18 @@ function historyList() {
             historyButton.attr('name', localStorage.getItem([key]))
             historySection.append(historyButton)
         }
-    }return
-    
+    } return
+
 }
 
 // Search History Button
 $(historySection).on('click', '.searchHistory', function () {
-    
-    
-    $(userInput).val($(this).attr('name')) 
+
+
+    $(userInput).val($(this).attr('name'))
     console.log(userInput.val())
-    setTimeout(getWeatherObjects, 1000)
-   
+    getWeatherObjects()
+    setTimeout(conditions, 1000)
 })
 
 // Reset Button
