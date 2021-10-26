@@ -21,22 +21,8 @@ let historyButton = $('.searchHistory')
 // Conditions
 function conditions() {
 
-
     // local variables
     let key
-    let xinput = $(userInput).val()
-
-    // Loop to check local storage for duplicate entries 
-    for (let i = 0; i < localStorage.length; i++) {
-        let xinput = $(userInput).val()
-        let key = localStorage.key(i)
-        let value = localStorage.getItem(key)
-        if (value === xinput) {
-            console.log('SAME')
-            createElements()
-            return
-        }
-    }
 
     // Condition when there isn't any input
     if (userInput.val() === '') {
@@ -51,6 +37,17 @@ function conditions() {
         return
     }
 
+    // Loop to check local storage for duplicate entries 
+    for (let i = 0; i < localStorage.length; i++) {
+        let xinput = $(userInput).val()
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === xinput) {
+            createElements()
+            return
+        }
+    }
+
     if (localStorage.getItem(key) != 0) {
 
         let x = localStorage.length
@@ -60,6 +57,7 @@ function conditions() {
         let cityName = userInput.val()
 
     }
+
     createElements()
     historyList()
 
@@ -67,12 +65,12 @@ function conditions() {
 
 // Search click event
 $(searchButton).on('click', function (event) {
-    
+
     event.preventDefault()
 
     //Pull weather data 
     getWeatherObjects()
-    setTimeout(conditions, 1000)
+    setTimeout(conditions, 1500)
 
 
 })
@@ -92,10 +90,8 @@ $(historySection).on('click', '.searchHistory', function (event) {
 
     event.preventDefault()
     $(userInput).val($(this).attr('name'))
-    console.log(userInput.val())
-
     getWeatherObjects()
-    setTimeout(conditions, 1000)
+    setTimeout(conditions, 1500)
 
 
 })
@@ -226,7 +222,7 @@ function createElements() {
         $(forecastCard).append(uvEl)
     }
     // Append History
-    
+
 }
 
 // Display Search History

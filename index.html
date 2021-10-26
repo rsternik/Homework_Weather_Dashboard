@@ -5,30 +5,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
 
+<!-- Body -->
+
 <body>
+
+    <!-- Header -->
     <header>
         <h1>Weather Dashboard</h1>
     </header>
+
+    <!-- MAIN -->
     <main>
+        <!-- ASIDE  -->
         <aside>
-            <h2>Search for a City:</h2>
+            <!-- User Input and User History -->
             <div class="history">
+                <h2>Enter a city name</h2>
                 <form>
                     <label for="username"></label>
-                    <input type="text" id="search" name="username" required="required">
-             </form>
-                <button class="search">Search</button>
+                    <div class="formEl">
+                        <input type="text" id="search" name="username" required="required">
+                        <button type="submit" class="search"><span class="material-icons">search</span></button>
+                        <button class='resetHistory' name="reset"><span class="material-icons">delete</span> </button>
+                        </div>
+                        <div class="seperation"></div>
+                    </div>
+
+                </form>
                 
-                  <div class="seperation"></div>
-                <button class='resetHistory' name="reset">Reset History</button>
             </div>
         </aside>
-        <section>
+
+               <section>
             <div class="currentWeather">
                 <div class="currentCard">
                     <div class="currentEl">
@@ -79,8 +93,6 @@
             </div>
         </section>
     </main>
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

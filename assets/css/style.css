@@ -3,17 +3,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Oxanium:wght@400;700&display=swap");
 body {
     --ox: "Oxanium";
-    --samgrad: rgb(6, 4, 121) linear-gradient(90deg, rgb(9, 11, 102) 0%, rgb(36, 38, 153) 50%, rgb(54, 105, 168) 100%);
-    --samgray: rgb(126, 126, 126) linear-gradient(90deg, rgb(104, 104, 104) 0%, rgb(235, 235, 235) 50%, rgb(141, 141, 141) 100%);
+    --samgrad: rgb(23, 20, 218) linear-gradient(90deg, rgb(25, 27, 156) 0%, rgb(55, 58, 218) 50%, rgb(54, 105, 168) 100%);
+    --samcurrent: rgb(204, 184, 2) linear-gradient(90deg, rgb(199, 196, 7) 0%, rgb(221, 201, 23) 50%, rgb(255, 227, 45) 100%);
+    --samhistory: rgb(200, 25, 25) linear-gradient(90deg, rgb(200, 53, 53) 0%, rgb(200, 53, 53) 50%, rgb(200, 25, 25) 100%);
     font-family: var(--ox);
     line-height: 1;
-    text-shadow: rgb(4, 29, 31) 0px 2px 2px;
-    background-color: rgb(255, 255, 255);
+    text-shadow: rgb(2, 19, 20) 0px 2px 2px;
+    background-color: rgb(205, 215, 221);
 }
 
 header {
     --ox: "Oxanium";
     background: var(--samgrad);
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    box-shadow: rgb(54, 55, 58) 0px 3px 3px;
+    margin-bottom: 1em;
+    text-shadow: rgb(0, 0, 0) 5px 6px 2px;
+    justify-self: center;
+    align-self: center;
 }
 
 h1 {
@@ -28,125 +36,145 @@ h1 {
 
 main {
     display: grid;
-    justify-items: center;
-    align-items: left;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 2fr;
     padding: 0%;
-    margin: 0%;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: center;
 }
 
 aside {
-    align-items: center;
-    justify-items: center;
+    align-self: right;
+    justify-self: right;
     font-size: 1.3em;
     color: white;
     text-align: left;
+    height: 103%;
 }
 
 section {
     justify-self: left;
-    grid-template-rows: 1fr 4fr;
+    align-self: left;
+    grid-template-rows: 1fr 1fr;
     font-size: 1.3em;
-    width: 90%;
+    width: 100%;
     color: white;
 }
 
 h2 {
-    text-shadow: rgb(185, 185, 185) 0px 2px 2px;
+    text-shadow: rgb(0, 0, 0) 0px 2px 2px;
     margin: .3em;
-    font-size: 1.2em;
-    color: rgb(0, 0, 0);
+    font-size: 1.3em;
+    color: rgb(255, 255, 255);
+    text-align: center;
 }
 
 input {
+    display: inline-block;
     margin: .3em;
     line-height: 2em;
     border-radius: 4px;
     border: 1px solid black;
-    box-shadow: rgb(138, 135, 135) 0px 2px 2px;
+    box-shadow: rgb(65, 63, 63) 0px 2px 2px;
     text-align: left;
     padding-left: .5em;
+    width: 100%
 }
 
 button {
-    margin: .5em;
-    padding: .2em;
-    font-size: 1em;
+    margin: .3em;
+    line-height: 2em;
+    border: none;
     border-radius: 6px;
-    background: var(--samgrad);
+    background-color: rgb(102, 104, 131);
     color: ghostwhite;
-    text-shadow: rgb(29, 29, 29) 0px 1px 2px;
-    box-shadow: rgb(20, 19, 19) 0px 1px 2px;
+    text-shadow: rgb(7, 7, 7) 0px 1px 2px;
+    box-shadow: rgb(65, 63, 63) 0px 2px 2px;
+}
+
+.material-icons {
+    display: block;
+    font-size: 1.3em;
+    width: 100%;
 }
 
 .seperation {
     height: 0%;
+    padding: .3em;
+    margin: .3em;
     border-bottom: 2px solid rgb(0, 0, 0);
 }
 
 .history {
     display: grid;
     grid-auto-rows: .00001fr;
+    background: var(--samhistory);
+    box-shadow: rgb(54, 55, 58) 0px 3px 3px;
+    border-radius: 4px;
+    margin: .3em;
+    height: 98%;
 }
 
 .searchHistory {
     margin: .4em;
     padding: .2em;
-    font-size: .8em;
-    border-radius: 6px;
-    text-shadow: rgb(153, 153, 153) 0px 3px 2px;
-    color: rgb(0, 0, 0);
-    background: none;
-    background-color: rgb(177, 177, 177);
+    font-size: 1em;
+    text-shadow: rgb(17, 17, 17) 0px 3px 2px;
+    color: rgb(255, 255, 255);
     text-transform: capitalize;
+    border: none;
+    box-shadow: rgb(65, 63, 63) 0px 2px 2px;
 }
 
 .currentWeather {
     margin: .3em;
     padding: .2em;
-    border: 2px solid black;
     border-radius: 4px;
-    height: 45%;
-    width: 20%
+    height: 50%;
+    width: 100%;
+    background: var(--samcurrent);
+    box-shadow: rgb(54, 55, 58) 0px 3px 3px;
 }
 
 h3 {
-    color: black;
+    color: white;
     text-shadow: rgb(126, 128, 128) 0px 1px 2px;
     line-height: 2em;
     padding: .1em;
     margin: .1em;
+    text-shadow: rgb(19, 16, 14) 0px 2px 2px;
 }
 
 .forecast {
-    margin: .4em;
-    padding: .5em;
+    margin: .3em;
+    padding: .2em;
+    border-radius: 4px;
+    height: 50%;
+    width: 100%;
+    background: var(--samgrad);
+    box-shadow: rgb(54, 55, 58) 0px 3px 3px;
 }
 
 .currentCard {
-    background-color: white;
-    color: black;
+    color: rgb(255, 255, 255);
     padding: .2em;
-    text-shadow: rgb(199, 199, 199) 0px 2px 2px;
+    text-shadow: rgb(44, 39, 33) 0px 2px 2px;
     width: 100%;
-    
 }
 
 .forecastCard {
-    background: var(--samgrad);
     line-height: 1.8em;
-    padding: 1.3em;
-    margin: .6em;
-    text-shadow: rgb(90, 86, 86) 0px 2px 2px;
+    padding: .4em;
+    margin: .1emm;
+    text-shadow: rgb(2, 2, 2) 0px 2px 2px;
     color: rgb(255, 255, 255);
-    font-size: .8em;
-    border-radius: 4px;
-    box-shadow: rgb(173, 169, 169) 0px 3px 3px;
+    font-size: .7em;
 }
 
 .forecastCard h3 {
     text-shadow: rgb(90, 86, 86) 0px 2px 2px;
     color: rgb(255, 255, 255);
+    font-size: 1em;
 }
 
 li {
@@ -161,36 +189,16 @@ li {
     width: 100%;
 }
 
-
-.currentEl{
-    display:flex;
+.currentEl {
+    display: grid;
     width: 100%;
-    
 }
 
-@media screen and (max-width: 992px) {
-    .currentWeather{
-      width: 35%;
-      height: 35%;
-      align-items: center;
-     }
-     .seperation{
-         max-height: 10%;
-     }
-     h3.city{
-         font-size: 0.8em;
-     }
-     li{
-         font-size: 0.7em;
-     }
+.formEl {
+    display: flex;
+}
 
-     .cards{
-         display: inline-block;
-        
-         
-     }
+@media screen and (max-width: 1610px) {
 
-      }
-  
-  
-  
+}
+
