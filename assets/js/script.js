@@ -5,12 +5,10 @@ let time = now.format("dddd, MMMM Do YYYY, h:mm:ss a")
 // API KEY
 const APIkey = "3472a002d02ffd44a03b6300e98ebe05"
 
-//  Variables & Arrays
-let key
-// One Call API object
-let oncallObj = []
+//  Variables
 
-// Weather API object
+// One Call & Weather API objects
+let oncallObj = []
 let weatherObj = []
 
 // Queries 
@@ -22,12 +20,27 @@ let historyButton = $('.searchHistory')
 
 // Conditions
 function conditions() {
-    $('#searchHistory').remove()
-    // Condition when there isn't any input
 
+
+    // local variables
+    let key
+    let xinput = $(userInput).val()
+
+    // Loop to check local storage for duplicate entries 
+    for (let i = 0; i < localStorage.length; i++) {
+        let xinput = $(userInput).val()
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === xinput) {
+            console.log('SAME')
+            createElements()
+            return
+        }
+    }
+
+    // Condition when there isn't any input
     if (userInput.val() === '') {
         alert('You must enter a city name.')
-        historyList()
         return
 
     }
@@ -38,31 +51,53 @@ function conditions() {
         return
     }
 
-    // Loop to check local storage for duplicate entries 
-    for (let i = 0; i < localStorage.length; i++) {
-        let xinput = $(userInput).val()
-        let key = localStorage.key(i)
-        let value = localStorage.getItem(key)
-        if (value === xinput) {
-            console.log(xinput)
-            $('#searchHistory').remove()
-            getWeatherObjects()
-            setTimeout(createElements, 1000)
-            return
-        }
+    if (localStorage.getItem(key) != 0) {
+
+        let x = localStorage.length
+        // write to storage
+        localStorage.setItem('City' + '_' + x++, userInput.val())
+        // userInput val
+        let cityName = userInput.val()
+
     }
-    $('#searchHistory').remove()
-    historyConditions()
-    return
+    createElements()
+    historyList()
+
 }
 
 // Search click event
-$(searchButton).on('click', function () {
-    $('#searchHistory').remove()
+$(searchButton).on('click', function (event) {
+    
+    event.preventDefault()
+
     //Pull weather data 
     getWeatherObjects()
     setTimeout(conditions, 1000)
+
+
+})
+
+// Reset History click event
+$(resetButton).on('click', function (event) {
+
+    event.preventDefault()
+    localStorage.clear()
+    location.reload()
     return
+
+})
+
+// Search History click event
+$(historySection).on('click', '.searchHistory', function (event) {
+
+    event.preventDefault()
+    $(userInput).val($(this).attr('name'))
+    console.log(userInput.val())
+
+    getWeatherObjects()
+    setTimeout(conditions, 1000)
+
+
 })
 
 // Pull weatherObj Data and dump into global arrays - oncallObj and weatherObj
@@ -95,7 +130,6 @@ function getWeatherObjects() {
 
                 })
         });
-
 }
 
 // Display Forecasts
@@ -104,7 +138,6 @@ function createElements() {
     // Clear elements
     $('.currentCard').html('')
     $('.cards').html('')
-    $('#searchHistory').remove()
 
     // Get skies icon 
     todayIcon = oncallObj[0].current.weather[0].icon
@@ -191,24 +224,14 @@ function createElements() {
         $(forecastCard).append(windEl)
         $(forecastCard).append(humidEl)
         $(forecastCard).append(uvEl)
-    } historyList()
-}
-
-// Store Search History  
-function historyConditions() {
-
-    if (localStorage.getItem(key) >= 0) {
-        let x = localStorage.length
-        localStorage.setItem(x++, userInput.val())
-        // userInput val
-        let cityName = userInput.val()
-    } createElements()
-    return
+    }
+    // Append History
+    
 }
 
 // Display Search History
 function historyList() {
-    $('#searchHistory').remove()
+    $('.searchHistory').remove()
     // Pull from localstorage
     for (let key in localStorage) {
         if (typeof localStorage[key] === 'string') {
@@ -224,22 +247,6 @@ function historyList() {
 
 }
 
-// Search History Button
-$(historySection).on('click', '.searchHistory', function () {
-
-
-    $(userInput).val($(this).attr('name'))
-    console.log(userInput.val())
-    getWeatherObjects()
-    setTimeout(conditions, 1000)
-})
-
-// Reset Button
-$(resetButton).on('click', function () {
-    console.log('History Reset Clicked')
-    localStorage.clear()
-    location.reload()
-
-})
-$('#searchHistory').remove()
+// Page load
+$('.searchHistory').remove()
 historyList()
