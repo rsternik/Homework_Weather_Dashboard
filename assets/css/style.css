@@ -2,26 +2,36 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Oxanium:wght@400;700&display=swap");
 body {
+    display:  flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     --ox: "Oxanium";
-    --samgrad: rgb(23, 20, 218) linear-gradient(90deg, rgb(25, 27, 156) 0%, rgb(55, 58, 218) 50%, rgb(54, 105, 168) 100%);
-    --samcurrent: rgb(204, 184, 2) linear-gradient(90deg, rgb(199, 196, 7) 0%, rgb(221, 201, 23) 50%, rgb(255, 227, 45) 100%);
+    --samgrad: rgb(49, 45, 233) linear-gradient(90deg, rgb(44, 47, 197) 0%, rgb(55, 58, 218) 50%, rgb(54, 105, 168) 100%);
+    --samcurrent: rgb(204, 184, 2) linear-gradient(90deg, rgb(209, 206, 16) 0%, rgb(233, 212, 29) 50%, rgb(255, 227, 45) 100%);
     --samhistory: rgb(200, 25, 25) linear-gradient(90deg, rgb(200, 53, 53) 0%, rgb(200, 53, 53) 50%, rgb(200, 25, 25) 100%);
     font-family: var(--ox);
     line-height: 1;
     text-shadow: rgb(2, 19, 20) 0px 2px 2px;
-    background-color: rgb(205, 215, 221);
+    background-color: rgb(235, 236, 238);
+    
+    margin-left: 2em;
+    margin-right: 2em;
+    
 }
 
 header {
+  
     --ox: "Oxanium";
     background: var(--samgrad);
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
     box-shadow: rgb(54, 55, 58) 0px 3px 3px;
     margin-bottom: 1em;
     text-shadow: rgb(0, 0, 0) 5px 6px 2px;
     justify-self: center;
     align-self: center;
+    width: 100%;
+    
 }
 
 h1 {
@@ -32,30 +42,30 @@ h1 {
     line-height: 1;
     color: white;
     padding: .3em;
+    width: 100%;
 }
 
 main {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     padding: 0%;
-    margin-left: 10%;
-    margin-right: 10%;
     justify-content: center;
+    width: 100%;
+    margin-left: .1em;
+    margin-right: .1em;
 }
 
 aside {
-    align-self: right;
-    justify-self: right;
+    
     font-size: 1.3em;
     color: white;
-    text-align: left;
-    height: 103%;
+    height: 106%;
+    width: 100%;
+    
+    
 }
 
 section {
-    justify-self: left;
-    align-self: left;
-    grid-template-rows: 1fr 1fr;
     font-size: 1.3em;
     width: 100%;
     color: white;
@@ -78,7 +88,8 @@ input {
     box-shadow: rgb(65, 63, 63) 0px 2px 2px;
     text-align: left;
     padding-left: .5em;
-    width: 100%
+    width: 100%;
+    font-size: .8em;
 }
 
 button {
@@ -113,11 +124,13 @@ button {
     border-radius: 4px;
     margin: .3em;
     height: 98%;
+    white-space: nowrap;
+  overflow: hidden;
 }
 
 .searchHistory {
     margin: .4em;
-    padding: .2em;
+    padding: .1em;
     font-size: 1em;
     text-shadow: rgb(17, 17, 17) 0px 3px 2px;
     color: rgb(255, 255, 255);
@@ -134,22 +147,24 @@ button {
     width: 100%;
     background: var(--samcurrent);
     box-shadow: rgb(54, 55, 58) 0px 3px 3px;
+    white-space: nowrap;
+  overflow: hidden;
 }
 
 h3 {
     color: white;
     text-shadow: rgb(126, 128, 128) 0px 1px 2px;
-    line-height: 2em;
-    padding: .1em;
-    margin: .1em;
+    line-height: .8em;
+    padding: .3em;
+    margin: .3em;
     text-shadow: rgb(19, 16, 14) 0px 2px 2px;
 }
 
 .forecast {
     margin: .3em;
-    padding: .2em;
+    padding: .9em;
     border-radius: 4px;
-    height: 50%;
+    height: 53%;
     width: 100%;
     background: var(--samgrad);
     box-shadow: rgb(54, 55, 58) 0px 3px 3px;
@@ -158,24 +173,35 @@ h3 {
 .currentCard {
     color: rgb(255, 255, 255);
     padding: .2em;
+    margin: .2em;
     text-shadow: rgb(44, 39, 33) 0px 2px 2px;
     width: 100%;
+    font-size: .9em;
 }
 
 .forecastCard {
     line-height: 1.8em;
     padding: .4em;
-    margin: .1emm;
-    text-shadow: rgb(2, 2, 2) 0px 2px 2px;
-    color: rgb(255, 255, 255);
-    font-size: .7em;
+    margin: .2emm;
+    text-shadow: rgb(160, 157, 157) 0px 1px 2px;
+    color: rgb(0, 0, 0);
+    font-size: .8em;
+    text-align: left;
+    box-shadow: rgb(73, 65, 65) 1px 3px 6px;
+    border-radius: 4px;
+    background-color: white;
+
 }
 
 .forecastCard h3 {
-    text-shadow: rgb(90, 86, 86) 0px 2px 2px;
-    color: rgb(255, 255, 255);
-    font-size: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-shadow: none;
+    color: rgb(24, 20, 0);
+    padding: .5em;
+    line-height: 1.2em;
 }
+
 
 li {
     padding: .2em;
@@ -185,8 +211,12 @@ li {
 
 .cards {
     display: grid;
+    gap: .6em;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     width: 100%;
+    padding-bottom: 1em;
+    
+    
 }
 
 .currentEl {
@@ -196,9 +226,8 @@ li {
 
 .formEl {
     display: flex;
+   padding: .1em;
+   margin: .1em;
 }
 
-@media screen and (max-width: 1610px) {
-
-}
 

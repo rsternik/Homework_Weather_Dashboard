@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-## Description
+## **Description**
 <p>Application that allow your to lookup the current weather and a 5 day forecast by typing in a city name</p>
  
  ### **Usage**
@@ -9,9 +9,9 @@
 Search history will also be added as their own buttons beneath the 'Reset History' button.</p>
 
 
-#### **Live URL**
+### **Live URL**
 https://rsternik.github.io/Homework_Weather_Dashboard/
 
-#### Preview
+### **Preview**
 
 ![](assets/img/preview.png)
