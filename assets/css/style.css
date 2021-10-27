@@ -129,7 +129,7 @@ h3 {
     display: grid;
     color: var(--color2);
     font-size: 1.2vw;
-    line-height: .8em;
+    
     padding: .3em;
     margin: .3em;
     text-shadow: 1px 1px 3px #0e2d41;
