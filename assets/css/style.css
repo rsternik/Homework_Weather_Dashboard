@@ -2,48 +2,40 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Oxanium:wght@400;700&display=swap");
 body {
-    
     grid-template-rows: 1fr 5fr;
     align-content: center;
     --ox: "Oxanium";
     --samgrad: rgb(49, 45, 233) linear-gradient(90deg, rgb(44, 47, 197) 0%, rgb(55, 58, 218) 50%, rgb(54, 105, 168) 100%);
     --samcurrent: rgb(247, 227, 48) linear-gradient(90deg, rgb(235, 231, 43) 0%, rgb(233, 212, 29) 50%, rgb(255, 227, 45) 100%);
     --samhistory: rgb(200, 25, 25) linear-gradient(90deg, rgb(200, 53, 53) 0%, rgb(200, 53, 53) 50%, rgb(200, 25, 25) 100%);
-    
     /* color scheme */
     --color1: #f2dae8;
     --color2: #d699b5;
     --color3: #a3d2ed;
     --color4: #f5e68c;
-    --color5: #51342e; 
-
+    --color5: #51342e;
     font-family: var(--ox);
     line-height: 1;
     background-color: var(--color1);
     margin-left: 10%;
     margin-right: 10%;
-    
-    
 }
 
 header {
     display: grid;
     --ox: "Oxanium";
-   
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-bottom: 1em;
     justify-self: center;
     align-self: center;
     width: 100%;
-
-    
 }
 
 h1 {
     text-align: center;
     font-family: var(--ox);
-    font-size: 2.5em;
+    font-size: 2.5vw;
     line-height: 1;
     color: var(--color5);
     padding: .3em;
@@ -58,25 +50,17 @@ main {
 }
 
 aside {
-    
     font-size: 1.3em;
-    
-    height: 106%;
-    
-    
-    
 }
 
 section {
-    
     font-size: 1.3em;
     color: white;
 }
 
 h2 {
-   
     margin: .3em;
-    font-size: 1.3em;
+    font-size: 2vw;
     color: var(--color5);
     text-align: center;
 }
@@ -87,11 +71,10 @@ input {
     line-height: 2em;
     border-radius: 4px;
     border: 1px solid black;
-   
     text-align: left;
     padding-left: .5em;
     width: 100%;
-    font-size: .8em;
+    font-size: 1.5vw;
 }
 
 button {
@@ -107,6 +90,7 @@ button {
     display: block;
     font-size: 1.3em;
     width: 100%;
+    font-size: 2.5vw;
 }
 
 .seperation {
@@ -120,7 +104,6 @@ button {
     display: grid;
     grid-auto-rows: .00001fr;
     background: var(--color4);
-    
     border-radius: 4px;
     margin: .3em;
     height: 98%;
@@ -131,24 +114,19 @@ button {
 .searchHistory {
     margin: .4em;
     padding: .1em;
-    font-size: 1em;
-    
+    font-size: 1.5vw;
     color: rgb(255, 255, 255);
     text-transform: capitalize;
     border: none;
-    
 }
-
-
 
 h3 {
     display: grid;
     color: rgb(0, 0, 0);
-   
+    font-size: 1.2vw;
     line-height: .8em;
     padding: .3em;
     margin: .3em;
-    
 }
 
 .currentWeather {
@@ -156,106 +134,86 @@ h3 {
     margin: .4em;
     padding: 1em;
     border-radius: 4px;
-    height: 44%;
     background: var(--color4);
-    
-
 }
 
 .currentCard {
     color: rgb(0, 0, 0);
     padding: .2em;
     margin: .2em;
-    
-    font-size: .9em;
-    
     border-radius: 4px;
     background-color: white;
     display: grid;
     justify-items: center;
     font-size: 1vw;
 }
+
 .forecast {
     display: grid;
     margin: .3em;
     padding: .9em;
     border-radius: 4px;
-    height: 58%;
     background: var(--color4);
-    
-    
 }
+
 .forecastCard {
     display: grid;
     justify-items: center;
-    
     color: rgb(0, 0, 0);
     text-align: center;
-    
     border-radius: 4px;
     background-color: white;
     font-size: .9vw;
-    
-
 }
 
 .forecastCard h3 {
     display: grid;
     white-space: nowrap;
-    overflow: hidden;  
     color: rgb(0, 0, 0);
-    padding: .5em;
-    line-height: 1.2em;
-   
+    padding: 1em;
+    font-size: 1vw;
 }
 
 .fiveDay {
     display: grid;
     color: var(--color5);
+    font-size: 1.4vw;
 }
 
 li {
-    
     padding: .5%;
     list-style: none;
     line-height: 1.3em;
-    
 }
 
 .cards {
     display: grid;
-    grid-template-columns: .5fr .5fr .5fr .5fr .5fr;
-    gap: 2%;
-    padding-bottom: 1em;
-    font-size: 90%;
-    
-    
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px  
 }
 
 .currentEl {
     display: grid;
-    
 }
 
 .formEl {
     display: flex;
-   padding: .1em;
-   margin: .1em;
+    padding: .1em;
+    margin: .1em;
 }
 
-
-.searchHistory:hover{
+.searchHistory:hover {
     background-color: rgb(81, 81, 167);
-    
 }
-.searchHistory:active{
+
+.searchHistory:active {
     background-color: rgb(206, 206, 223);
-    
 }
 
-button:hover{
+button:hover {
     background-color: rgb(81, 81, 167);
 }
-button:active{
+
+button:active {
     background-color: rgb(206, 206, 223);
 }
